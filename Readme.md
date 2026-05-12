@@ -1,226 +1,259 @@
-# 2D-ARRAY-AND-RECURSION
+# M-18-2D-ARRAY
+- When its needed to take multiple array . we cants take at a time right? like each student's have 10 marks , one array for student will hold one student's marks , multiple student multiple array. this is when 2d Array is needed.
 
-## callstack 
+## what is 2d array?
+A 2D array is like a table with rows and columns. It is an array of arrays, where each row can hold multiple values. For example, you can use a 2D array to store the marks of several students, where each row is a student and each column is a subject or test score. It helps organize data in a grid format, making it easy to access and manage.
 
-### What is a Stack?
-
-A stack is a linear data structure that follows the Last-In, First-Out (LIFO) principle. This means that the last element added (pushed) to the stack is the first one to be removed (popped). Stacks are used in many areas of computer science, such as expression evaluation, backtracking, and function call management.
-
-### What is a Call Stack?
-
-The call stack is a special type of stack used by programming languages to keep track of active function calls. Each time a function is called, a new stack frame is pushed onto the call stack, containing information like local variables, parameters, and the return address. When the function finishes, its frame is popped off, and control returns to the previous function.
-
-The call stack allows programs to handle nested and recursive function calls, ensuring that each function has its own context and can return to the correct place in the code.
-
-```c
-#include <stdio.h>
-
-void mello()
-{
-    printf("Mello\n");
-}
-
-void gello()
-{
-    printf("Gello\n");
-    mello();
-}
-
-void hello()
-{
-    printf("Hello\n");
-    gello();
-}
-
-int main()
-{
-    printf("Hi\n");
-    hello();
-    return 0;
-}
-```
-
-#### How it works in the above code:
-1. The program starts in `main()`, which prints "Hi" and calls `hello()`.
-2. `hello()` prints "Hello" and calls `gello()`.
-3. `gello()` prints "Gello" and calls `mello()`.
-4. `mello()` prints "Mello".
-
-Each function call adds a new frame to the call stack. When `mello()` finishes, its frame is removed, and control returns to `gello()`, then to `hello()`, and finally to `main()`. This stack-based management allows for nested and recursive function calls, ensuring each function has its own context and can return to the correct place in the code.
-
-
-## recursion 
-- when a function calls himself 
-
-```c
-#include <stdio.h>
-
-
-void hello()  // recursive function 
-{
-    printf("Hello\n");
-    hello();
-}
-
-int main()
-{
-    printf("Hi\n");
-    hello();
-    return 0;
-}
-```
-### What is Recursion?
-
-Recursion is a programming technique where a function calls itself directly or indirectly to solve a problem. Each recursive call creates a new frame on the call stack, just like a regular function call.
-
-#### How it works in the above code:
-1. The program starts in `main()`, which prints "Hi" and calls `hello()`.
-2. `hello()` prints "Hello" and then calls itself again.
-3. This process repeats indefinitely, with each call to `hello()` adding a new frame to the call stack.
-
-Since there is no condition to stop the recursion (no base case), the function keeps calling itself until the call stack limit is reached, causing a stack overflow error. In practice, recursive functions should always have a base case to stop the recursion and prevent such errors.
-
+ - 2D array means like its an array , inside each field of the array we can store another array. remember the inside array will be of fixed size. 
 
 ![alt text](image.png)
 
+![alt text](image-1.png)
 
-## now lets learn how to control the recursion 
-- print 1 to 5 using recursion 
+- suppose we c=want to change a value of the inside array we need to first tell which index of the first array then the inside array index
 
-```c
-#include <stdio.h>
+![alt text](image-2.png)
 
-void hello(int i)
-{
-    if (i == 6)
-    {
-        return;
-    }
-    printf("%d\n", i);
-    hello(i + 1);
-}
+- final indexing pattern
 
-int main()
-{
-    int i = 1;
-    hello(i);
-    return 0;
-}
-```
+![alt text](image-3.png)
 
-#### its similar to loop (incremental)
-```c
-#include <stdio.h>
+- suppose we need a 4 indexed array. 
 
-void hello(int i)
-{
-    if (i == 6)  // end condition for the recursion, when i becomes 6, the function will return and stop the recursion 
-    {
-        return;
-    }
-    printf("%d\n", i);
-    hello(i + 1);  // increment/decrement the value of i
-}
+![alt text](image-4.png)
 
-int main()
-{
-    int i = 1;
-    hello(i);  // initialize the value of i with 1 and pass it to the function
-    return 0;
-}
+![alt text](image-5.png)
 
-```
+![alt text](image-6.png)
 
-#### lets see the reverse loop (decremental)
+- lets replace this value 
+
+![alt text](image-7.png)
 
 ```c
 #include <stdio.h>
 
-void hello(int i)
-{
-    if (i == 0)
-    {
-        return;
-    }
-    printf("%d\n", i);
-    hello(i - 1);
-}
-
 int main()
 {
-    int i = 5;
-    hello(i);
+    int a[3][4];
+    a[1][2] = 10;
+    printf("%d\n", a[1][2]);
     return 0;
 }
-
 ```
 
-- without changing the login we will be doing same decremental lets do it 
+- lets take input 
+
+- input of 2d array 
+
+```
+2 3
+1 2 3
+4 5 6 
+```
+
+- grabbing the input 
 
 ```c
 #include <stdio.h>
 
-void hello(int i)
-{
-    if (i == 6)
-    {
-        return;
-    }
-    hello(i + 1);
-    printf("%d\n", i); // this will be printing from 5 to 1 
-    // this print works like magic because it works when function is removing from the stack so for this reason its showing in reverse order
-}
-
 int main()
 {
-    int i = 1;
-    hello(i);
+    int r, c;
+    scanf("%d %d", &r, &c);
+    int ar[r][c];
+    for (int i = 0; i < r; i++)
+    {
+        for (int j = 0; j < c; j++)
+        {
+            scanf("%d", &ar[i][j]);
+        }
+    }
+    // print
+    for (int i = 0; i < r; i++)
+    {
+        for (int j = 0; j < c; j++)
+        {
+            printf("%d ", ar[i][j]);
+        }
+        printf("\n");
+    }
     return 0;
 }
 ```
 
-##### Step 1: Function calls go into the stack
-
-When you call hello(i + 1), the current function pauses and waits.
-
-So this happens:
+- PRINT SPECIFIC ROW 
 
 ```
-hello(1)
- └── hello(2)
-      └── hello(3)
-           └── hello(4)
-                └── hello(5)
-                     └── hello(6)
+3 4
+1 2 3 2 
+4 5 6 3
+7 8 9 2 
+1 
 ```
-- for each and every call its not reaching print function because its not reaching 6. when 6 reaches the functions are been poping off from the stack and reaching the print function because no more chance to be called again. when poping off the las function i value was 5; so that the point it prints 5 to 1
 
+```C
+#include <stdio.h>
 
-- print array using recursion 
+int main()
+{
+    int r, c;
+    scanf("%d %d", &r, &c);
+    int ar[r][c];
+    for (int i = 0; i < r; i++)
+    {
+        for (int j = 0; j < c; j++)
+        {
+            scanf("%d", &ar[i][j]);
+        }
+    }
+    // print specific row and column
+    int specific_row;
+    scanf("%d", &specific_row);
+    for (int i = 0; i < c; i++)
+    {
+            printf("%d ", ar[specific_row][i]);
+    }
+    return 0;
+}
+```
+- Print specific column 
+
+```
+3 4
+1 2 3 2 
+4 5 6 3
+7 8 9 2 
+1 
+
+```
 
 ```c
 #include <stdio.h>
-void print_array(int arr[], int n, int i)
-{
-    if (i == n)
-    {
-        return;
-    }
-    printf("%d ", arr[i]);
-    print_array(arr, n, i + 1);
-}
 
 int main()
 {
-    int n;
-    scanf("%d", &n);
-    int arr[n];
-    for (int i = 0; i < n; i++)
+    int r, c;
+    scanf("%d %d", &r, &c);
+    int ar[r][c];
+    for (int i = 0; i < r; i++)
     {
-        scanf("%d", &arr[i]);
+        for (int j = 0; j < c; j++)
+        {
+            scanf("%d", &ar[i][j]);
+        }
     }
-    print_array(arr, n, 0);
+    // print specific row and column
+    int specific_col;
+    scanf("%d", &specific_col);
+    for (int i = 0; i < r; i++)
+    {
+            printf("%d ", ar[i][specific_col]);
+    }
     return 0;
 }
 ```
--m 
+
+### Lets see some types of matrix 
+
+![alt text](image-8.png)
+
+- 3/4 matrix 
+
+![alt text](image-9.png)
+
+- CHECKING ROW MATRIX 
+
+````C
+#include <stdio.h>
+
+int main()
+{
+    int r, c;
+    scanf("%d %d", &r, &c);
+    int ar[r][c];
+    for (int i = 0; i < r; i++)
+    {
+        for (int j = 0; j < c; j++)
+        {
+            scanf("%d", &ar[i][j]);
+        }
+    }
+    if(r ==1){
+        printf("This is a row matrix\n");
+    }else{
+        printf("This is not a row matrix\n");
+    }
+    return 0;
+}
+```
+
+- checking square matrix 
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    int r, c;
+    scanf("%d %d", &r, &c);
+    int ar[r][c];
+    for (int i = 0; i < r; i++)
+    {
+        for (int j = 0; j < c; j++)
+        {
+            scanf("%d", &ar[i][j]);
+        }
+    }
+    if(r ==c){
+        printf("This is a square matrix\n");
+    }else{
+        printf("This is not a square matrix\n");
+    }
+    return 0;
+}
+```
+
+- check if zero matrix or not 
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    int r, c;
+    scanf("%d %d", &r, &c);
+    int ar[r][c];
+    for (int i = 0; i < r; i++)
+    {
+        for (int j = 0; j < c; j++)
+        {
+            scanf("%d", &ar[i][j]);
+        }
+    }
+    // check if it's a zero matrix
+    int total_val = r * c;
+    int zero_count = 0;
+
+    for (int i = 0; i < r; i++)
+    {
+        for (int j = 0; j < c; j++)
+        {
+            if (ar[i][j] == 0)
+            {
+                zero_count++;
+            }
+        }
+    }
+    if (zero_count == total_val)
+    {
+        printf("This is a zero matrix\n");
+    }
+    else
+    {
+        printf("This is not a zero matrix\n");
+    }
+    return 0;
+}
+
+```
