@@ -2,22 +2,21 @@
 
 int main()
 {
-    int r, c;
+    int r , c;
     scanf("%d %d", &r, &c);
-    int ar[r][c];
+    int arr[r][c];
     for (int i = 0; i < r; i++)
     {
         for (int j = 0; j < c; j++)
         {
-            scanf("%d", &ar[i][j]);
+            scanf("%d", &arr[i][j]);
         }
     }
-    // print
     for (int i = 0; i < r; i++)
     {
-        for (int j = 0; j < c; j++)
+        for (int j = c - 1; j >= 0; j--)
         {
-            printf("%d ", ar[i][j]);
+            printf("%d ", arr[i][j]);
         }
         printf("\n");
     }
